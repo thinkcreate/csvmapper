@@ -1,5 +1,30 @@
 csvmapper=========
-Description goes here.
+Easily map csv data to a class' attributes.
+
+Examples:
+class Person
+  include CSVMapper
+  
+  column :name, 'Name'
+  column :address, 'Address'
+  column :age, 2, Integer
+end
+
+csv =<<-CSV
+Name,Address,age
+Rob,Mainstreet 12, 24
+CSV
+Person.parse(csv) #=> 
+
+
+class ARProduct < ActiveRecord::Base
+  include CSVMapper
+  
+  attr_protected :name
+  
+  column :name
+  column :price, 'product_price', Float
+end
 
 COPYRIGHT
 =========
