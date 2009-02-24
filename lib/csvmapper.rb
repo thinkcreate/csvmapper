@@ -43,9 +43,7 @@ module CSVMapper
       
       @_columns[attr] = Column.new(attr, source, type, block)
       
-      # unless defined?(ActiveRecord::Base)
       create_accessor(attr)
-      # end
     end
     
     private
@@ -77,21 +75,11 @@ module CSVMapper
     end
 
     def create_setter(name)
-      # # p respond_to?('column_names') && send(:column_names).include?(name)
-      # # p "respond_to?('#{name}='): #{self.respond_to?(name+'=')}"
-      # if defined?(ActiveRecord::Base)
-      #   # p "#{name}="
-      #   p self.column_names.include?(name)
-      # end
-      # #.include?("#{name}=")
-      # # unless instance_methods.sort.include?("=")
-      # unless column_names.include?(name)
-        class_eval <<-EOS, __FILE__, __LINE__
-          def #{name}=(value)
-            @#{name} = value
-          end
-        EOS
-      # end
+      class_eval <<-EOS, __FILE__, __LINE__
+        def #{name}=(value)
+          @#{name} = value
+        end
+      EOS
     end
 
     def create_accessor(name)
