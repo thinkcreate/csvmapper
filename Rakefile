@@ -7,7 +7,7 @@ begin
     s.summary = %Q{TODO}
     s.email = "gert@thinkcreate.nl"
     s.homepage = "http://github.com/thinkcreate/csvmapper"
-    s.description = "TODO"
+    s.description = "Easily map csv-data to a class"
     s.authors = ["Gert Goet"]
   end
 rescue LoadError

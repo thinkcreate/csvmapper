@@ -2,7 +2,7 @@
 
 == DESCRIPTION:
 
-CSVMapper easily maps csv-data to instances of a class.
+CSVMapper easily maps csv-data to a class.
 
 == EXAMPLES:
 
