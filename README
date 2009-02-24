@@ -1,32 +1,46 @@
-csvmapper=========
-Easily map csv data to a class' attributes.
+= README
 
-Examples:
-class Person
-  include CSVMapper
+== DESCRIPTION:
+
+CSVMapper easily maps csv-data to instances of a class.
+
+== EXAMPLES:
+
+  module Shop
+    class Product
+      include CSVMapper
+      
+      column :name, 'product_name'
+      column :uid, 'product_uid', Integer
+      column :description, 2
+      column(:price_in_cents, 'product_price', Float){|float| (float * 100).round }
+      
+    end
+  end
   
-  column :name, 'Name'
-  column :address, 'Address'
-  column :age, 2, Integer
-end
-
-csv =<<-CSV
-Name,Address,age
-Rob,Mainstreet 12, 24
-CSV
-Person.parse(csv) #=> 
-
-
-class ARProduct < ActiveRecord::Base
-  include CSVMapper
+  csv =<<-CSV.gsub(/^ +/,'')
+    product_uid,product_name,product_description,product_price
+    1200,Ham,like you never tasted before,19.99
+  CSV
   
-  attr_protected :name
-  
-  column :name
-  column :price, 'product_price', Float
-end
+  p1 = Shop::Product.parse(csv).first
+  p1.price_in_cents   # 1999
 
-COPYRIGHT
-=========
+Enjoy!
 
-Copyright (c) 2008 Gert Goet. See LICENSE for details.
+== REQUIREMENTS:
+
+FasterCSV[http://fastercsv.rubyforge.org/]
+
+== LICENSE:
+
+
+/*
+ * Copyright (c) 2009 Gert Goet
+ * ----------------------------------------------------------------------------
+ * "THE SHIRT-WARE LICENSE" (Revision 10):
+ * http://github.com/thinkcreate wrote this software.
+ * As long as you retain this notice you can do whatever you want with this stuff. 
+ * If you think this stuff is worth it, you can buy me a github-shirt in return.
+ * ----------------------------------------------------------------------------
+ */

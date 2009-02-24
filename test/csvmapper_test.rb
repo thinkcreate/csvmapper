@@ -57,7 +57,7 @@ module Shop
     include CSVMapper
     
     column(:category, 'product_category', Integer)
-    column(:created, 2, Date)
+    column(:created_on, 2, Date)
     column(:price, 'product_price', Float)
     column(:naam, 'name'){|name| "Mr. #{name}"}
   end
@@ -75,14 +75,14 @@ context 'simple class' do
     @instance_expectations = [
                                 {
                                   :price  => 1000.0,
-                                  :created => Date.parse('13-12-2008'),
+                                  :created_on => Date.parse('13-12-2008'),
                                   :naam   => 'Mr. Brown',
                                   :category => 1
                                 },
                                 {
                                   :naam   => 'Mr. Pink',
                                   :price  => 2000.0,
-                                  :created => Date.parse('14-12-2008'),
+                                  :created_on => Date.parse('14-12-2008'),
                                   :category => 2
                                 }
                               ]
@@ -153,6 +153,7 @@ class ARProduct < ActiveRecord::Base
   column :price, 'product_price', Float
   column :uid, 'product_uid', Integer
   column(:created_at, 'product_created', DateTime)
+  
 end
 
 context 'active record class' do
@@ -172,10 +173,10 @@ context 'active record class' do
     CSV
 
     @instance_expectations = [{
-                                :name=>'naam', 
-                                :price=>1000.0, 
-                                :uid=>1200, 
-                                :created_at=>DateTime.parse('13-12-2008 13:00')}
+                                :name => 'naam', 
+                                :price => 1000.0, 
+                                :uid => 1200, 
+                                :created_at => DateTime.parse('13-12-2008 13:00')}
                               ]
   }
   behaves_like 'CSVMapped'
